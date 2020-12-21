@@ -69,12 +69,28 @@ const pedirCuenta = () => {
 
 /** PAGAR PEDIDO **/
 
+//verifica si se está pagando con moneda
+const esMoneda = montoEntregado =>{
+  return typeof montoEntregado === "number"
+} 
+
 //verifica si usuario tiene deuda
-const debeAlgo = () => usuario.deuda > 0
+const debeAlgo = (montoEntregado) => {
+  
+  if (!esMoneda(montoEntregado) ){//si NO es moneda, entre
+    console.log("Solo se aceptan dólares.");
+    return false
+  }else {
+    return usuario.deuda > 0
+  } 
+} 
 
 //paga pedido
 const pagarCuenta = montoEntregado =>{
-  if (!debeAlgo) return "No tiene una factura adeudada. Debe hacer un pedido primero."
+  //verificaciones
+  if (!debeAlgo(montoEntregado) ) return "No tiene una factura adeudada. Debe hacer un pedido primero."
+  
+  //casos sobre pago
     switch (true){
       case (montoEntregado < usuario.deuda):
         console.log("No te alcanza para pagar tu factura.");
