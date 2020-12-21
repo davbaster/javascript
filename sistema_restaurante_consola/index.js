@@ -53,7 +53,7 @@ const calcularCosto = () =>{
 }
 
 /** PEDIR CUENTA AL MESERO**/
-const finalizarPedido = () => {
+const pedirCuenta = () => {
   calcularCosto()
   
   // se agrega el costo del pedido a la deuda del usuario
@@ -64,4 +64,32 @@ const finalizarPedido = () => {
   costoPedido = 0
 
   return `${usuario.nombre}, debes pagar $${usuario.deuda}`
+}
+
+
+/** PAGAR PEDIDO **/
+
+//verifica si usuario tiene deuda
+const debeAlgo = () => usuario.deuda > 0
+
+//paga pedido
+const pagarPedido = montoEntregado =>{
+  if (debeAlgo) return "No tiene una factura adeudada. Debe hacer un pedido primero."
+    switch (true){
+      case (montoEntregado < usuario.deuda):
+        console.log("No te alcanza para pagar tu factura.");
+        break;
+
+      case (montoEntregado === usuario.deuda):
+        console.log(`Tu pedido ha sido pagado satisfactoriamente.`);
+        usuario.deuda = 0
+        break;
+
+      case (montoEntregado > usuario.deuda):
+        console.log(`Tu pedido ha sido pagado y tu cambio es de ${montoEntregado - usuario.deuda}`);
+        usuario.deuda = 0
+        break;
+      default:
+        console.log(`Algo salió mal.`);
+    }
 }
