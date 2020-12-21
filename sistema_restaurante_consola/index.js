@@ -7,7 +7,7 @@ const usuario = {
 }
 
 /* variables para pedido del usuario*/
-const pedido = []
+let pedido = []
 let costoPedido = 0
 
 
@@ -52,7 +52,16 @@ const calcularCosto = () =>{
   return `Su cuenta actual es de $${costoPedido}.`
 }
 
-/** PAGAR PEDIDO **/
-const finalizarPedido = () {
+/** PEDIR CUENTA AL MESERO**/
+const finalizarPedido = () => {
+  calcularCosto()
   
+  // se agrega el costo del pedido a la deuda del usuario
+  usuario.deuda = costoPedido
+
+  // Reinicializando variables
+  pedido = []
+  costoPedido = 0
+
+  return `${usuario.nombre}, debes pagar $${usuario.deuda}`
 }
